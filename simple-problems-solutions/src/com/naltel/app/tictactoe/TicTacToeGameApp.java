@@ -1,27 +1,31 @@
-package com.naltel.app;
+package com.naltel.app.tictactoe;
 
 import java.io.*;
 import java.lang.*;
 import java.util.Random;
 
-public class TicTacToe {
-	public TicTacToe() {
+public class TicTacToeGameApp {
+	
+	public TicTacToeGameApp() {
 	}
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		Integer grid[][] = { { 0, 0, 0 }, { 0, 0, 0 }, { 0, 0, 0 } };
+		TicTacToe ticTacToe = new TicTacToe();
 		boolean humanstep = true;
-		while (!isGameFinished(grid)) {
+		while (!ticTacToe.isGameFinished()) {
 			if (humanstep) {
 				String value = br.readLine();
 				String[] coOrdinates = value.split("x");
 				Integer x = Integer.parseInt(coOrdinates[0]);
 				Integer y = Integer.parseInt(coOrdinates[1]);
 				if (!(x > 3 || x < 0 || y > 3 || y < 0)) {
-					grid[x][y] = 1;
+					ticTacToe.updateUser(x,y,1);
+					//grid[x][y] = 1;
 					humanstep = false;
-					print(grid);
+					ticTacToe.print();
+					//print(grid);
 					System.out.println();
 				} else {
 					System.out
@@ -34,9 +38,11 @@ public class TicTacToe {
 				Integer x = Integer.parseInt(coOrdinates[0]);
 				Integer y = Integer.parseInt(coOrdinates[1]);
 				if (!(x > 3 || x < 0 || y > 3 || y < 0)) {
-					grid[x][y] = 2;
+					//grid[x][y] = 2;
+					ticTacToe.updateUser(x,y,2);
 					humanstep = true;
-					print(grid);
+					//print(grid);
+					ticTacToe.print();
 				} else {
 					System.out
 							.println("Hey You have given the input out of bound Give again");
@@ -44,6 +50,7 @@ public class TicTacToe {
 
 			}
 		}
+		System.out.println("Game Is Over.");
 	}
 
 	public static boolean isGridfilled(Integer grid[][]) {

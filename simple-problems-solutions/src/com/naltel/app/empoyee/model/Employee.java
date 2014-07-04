@@ -1,4 +1,4 @@
-package com.naltel.app.model;
+package com.naltel.app.empoyee.model;
 
 public class Employee {
 	private Long id;

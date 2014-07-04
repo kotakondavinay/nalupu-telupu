@@ -1,13 +1,13 @@
 /**
  * 
  */
-package com.naltel.app;
+package com.naltel.app.employee;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import com.naltel.app.model.Employee;
+import com.naltel.app.empoyee.model.Employee;
 
 /**
  * @author Vinay.

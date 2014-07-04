@@ -1,4 +1,4 @@
-package com.naltel.app;
+package com.naltel.app.employee;
 
 import java.util.ArrayList;
 import java.util.List;
