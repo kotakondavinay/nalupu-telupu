@@ -18,7 +18,7 @@ import org.apache.mahout.cf.taste.impl.similarity.*;
 public class RecommendationApp {
 
 	public static void main(String[] args) throws IOException, TasteException {
-		DataModel  dataModel = new FileDataModel(new File("/home/vinaykk/machinelearning/data/intro.csv"));
+		DataModel  dataModel = new FileDataModel(new File("src/main/resources/intro.csv"));
 		UserSimilarity userSimilarity =  new PearsonCorrelationSimilarity(dataModel);
 		UserNeighborhood neighborhood = new NearestNUserNeighborhood(2, userSimilarity, dataModel);
 		Recommender recommender = new GenericUserBasedRecommender(dataModel, neighborhood, userSimilarity);

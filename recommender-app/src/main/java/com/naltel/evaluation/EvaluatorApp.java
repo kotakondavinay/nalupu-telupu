@@ -21,7 +21,7 @@ public class EvaluatorApp {
 
 	public static void main(String[] args) throws TasteException, IOException {
 		RandomUtils.useTestSeed();
-		DataModel model = new FileDataModel(new File("/home/vinaykk/machinelearning/data/intro.csv"));
+		DataModel model = new FileDataModel(new File("src/main/resources/intro.csv"));
 		RecommenderEvaluator evaluator =
 		new AverageAbsoluteDifferenceRecommenderEvaluator ();
 		RecommenderBuilder builder = new RecommenderBuilder() {
@@ -30,7 +30,7 @@ public class EvaluatorApp {
 					throws TasteException {
 				DataModel model1 = null;
 				try {
-					model1 = new FileDataModel(new File("/home/vinaykk/machinelearning/data/intro.csv"));
+					model1 = new FileDataModel(new File("src/main/resources/intro.csv"));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

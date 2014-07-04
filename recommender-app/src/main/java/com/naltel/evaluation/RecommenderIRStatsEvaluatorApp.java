@@ -23,7 +23,7 @@ public class RecommenderIRStatsEvaluatorApp {
 	public static void main(String[] args) throws TasteException, IOException {
 		
 		RandomUtils.useTestSeed();
-		DataModel model = new FileDataModel (new File("/home/vinaykk/machinelearning/data/intro.csv"));
+		DataModel model = new FileDataModel (new File("src/main/resources/intro.csv"));
 		RecommenderIRStatsEvaluator evaluator =
 		new GenericRecommenderIRStatsEvaluator ();
 		RecommenderBuilder recommenderBuilder = new RecommenderBuilder() {
