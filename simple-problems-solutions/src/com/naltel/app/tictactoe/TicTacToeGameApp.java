@@ -16,11 +16,12 @@ public class TicTacToeGameApp {
 		boolean humanstep = true;
 		while (!ticTacToe.isGameFinished()) {
 			if (humanstep) {
+				System.out.println("user1 setp");
 				String value = br.readLine();
 				String[] coOrdinates = value.split("x");
 				Integer x = Integer.parseInt(coOrdinates[0]);
 				Integer y = Integer.parseInt(coOrdinates[1]);
-				if (!(x > 3 || x < 0 || y > 3 || y < 0)) {
+				if (!(x > 2 || x < 0 || y > 2 || y < 0)) {
 					ticTacToe.updateUser(x,y,1);
 					//grid[x][y] = 1;
 					humanstep = false;
@@ -29,10 +30,11 @@ public class TicTacToeGameApp {
 					System.out.println();
 				} else {
 					System.out
-							.println("Hey You have given the input out of bound Give again");
+							.println("Hey You have given the input out of bound, Give again");
 				}
 
 			} else {
+				System.out.println("user2 setp");
 				String value = br.readLine();
 				String[] coOrdinates = value.split("x");
 				Integer x = Integer.parseInt(coOrdinates[0]);
