@@ -1,0 +1,17 @@
+1) <property>
+    <name>hive.aux.jars.path</name>
+    <value>file:///path/to/hive-udf-[VERSION].jar</value>
+</property>
+
+2) hive> add jar /path/to/nexr-hive-udf-[VERSION].jar;
+
+3) hive> CREATE TEMPORARY FUNCTION greatest AS 'com.nexr.platform.hive.udf.GenericUDFGreatest';
+
+4) hive> DESCRIBE FUNCTION EXTENDED greatest;
+OK
+greatest(value1, value2, value3, ....) - Returns the greatest value in the list.
+
+5) Example:
+> SELECT greatest(2, 5, 12, 3) FROM src;
+12
+

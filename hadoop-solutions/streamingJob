@@ -1,0 +1,3 @@
+bin/hadoop jar contrib/streaming/hadoop-streaming-1.0.3.jar 
+-mapper '/bin/cat' -reducer '/usr/bin/wc -l'  
+-input /input/NalTelValue.log -output /streaming2 
