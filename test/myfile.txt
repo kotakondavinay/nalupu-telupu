@@ -1,0 +1,2 @@
+password=helloworld
+user=myuser
