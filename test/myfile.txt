@@ -1,2 +1,2 @@
-password=helloworld
-user=myuser
+password=
+user=
