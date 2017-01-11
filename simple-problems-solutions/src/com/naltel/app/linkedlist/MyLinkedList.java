@@ -86,9 +86,9 @@ public class MyLinkedList {
 		if(size==0) return null;
 		String s="";
 		Node temp=this.head;
-		for(int i=0;i<size;i++){
+		while(temp != null){
 			s=s+temp.data;
-			if(i<(size-1)) s=s+"--->";
+			s=s+"--->";
 			temp=temp.next;
 		}
 		return s;
@@ -171,6 +171,36 @@ public class MyLinkedList {
 		head.next = null;
 		this.head =  reversed;
 		return this.head;
+	}
+	
+	public void removeDuplicates() {
+		if(this.head == null) return;
+		Node itr = this.head;
+		while(itr.next != null) {
+			if(Integer.parseInt(itr.next.data.toString()) == Integer.parseInt(itr.data.toString())) {
+				itr.next = itr.next.next;
+			}
+			else {
+				itr = itr.next;
+			}
+		}
+	}
+	
+	public void removeDuplicatesUnsorted() {
+		if(this.head == null) return;
+		Node itr = this.head;
+		while(itr != null) {
+			Node itr2 = itr;
+			while(itr2.next != null) {
+				if(Integer.parseInt(itr.data.toString()) == Integer.parseInt(itr2.next.data.toString())) {
+					itr2.next=itr2.next.next;
+				}
+				else {
+					itr2=itr2.next;
+				}
+			}
+			itr=itr.next;
+		}
 	}
 	
 	public boolean isPalindrome() {

@@ -7,11 +7,16 @@ public class NthNode {
 	
 	public static void main(String args[]) {
 		
+		int[] array = new int[]{1,1,1,2,3,3,4,5,5};
+		
 		MyLinkedList ll = new MyLinkedList();
-		ll.insert(new Node(1));
-		ll.insert(new Node(2));
-		ll.insert(new Node(3));
-		ll.insert(new Node(1));
+		for(int i = 0; i <array.length; i++) {
+			ll.insert(new Node(array[i]));
+		}
+		//ll.insert(new Node(1));
+		//ll.insert(new Node(2));
+		//ll.insert(new Node(3));
+		//ll.insert(new Node(1));
 		//ll.insert(new Node(5));
 		/*
 		System.out.println(ll.toString());
@@ -50,9 +55,19 @@ public class NthNode {
 		//System.out.println(ll.toString());
 		//System.out.println(ll.toString());
 		//ll.reverseRecursion(ll.head);
+		//System.out.println(ll.toString());
+		//System.out.println(ll.isPalindrome());
+		//System.out.println(ll.toString());
+		
+		//System.out.println(ll.toString());
+		//ll.removeDuplicates();
+		//System.out.println(ll.toString());
+		
 		System.out.println(ll.toString());
-		System.out.println(ll.isPalindrome());
+		ll.removeDuplicatesUnsorted();
 		System.out.println(ll.toString());
+		
+		
 	}
 	
 	public static Node nthNode(Node thead, int k) {
