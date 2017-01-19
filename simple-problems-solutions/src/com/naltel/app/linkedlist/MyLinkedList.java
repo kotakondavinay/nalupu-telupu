@@ -94,6 +94,18 @@ public class MyLinkedList {
 		return s;
 	}
 	
+	public String toTailString(){
+		if(size==0) return null;
+		String s="";
+		Node temp=this.tail;
+		while(temp != null){
+			s=s+temp.data;
+			s=s+"--->";
+			temp=temp.next;
+		}
+		return s;
+	}
+	
 	public void reverseList(){
 		if(size<=1) return;
 		Node prev=null;
@@ -243,6 +255,87 @@ public class MyLinkedList {
 		reverseIterative();
 		head1.next=head2;
 		return true;
+	}
+	
+	public void reverseTwoConsecutive() {
+		if(this.head == null) return;
+		Node remaining = head;
+		Node temp, current, currentNext=null, fwd, prev=null;
+		while(remaining != null && remaining.next != null) {
+			
+			current = remaining;
+			currentNext = remaining.next;
+			fwd = remaining.next.next;
+			temp = current;
+			current.next = fwd;
+			currentNext.next = temp;
+			if(prev==null) {
+				this.head = currentNext;
+			} else {
+				prev.next = currentNext;
+			}
+			remaining = remaining.next;
+			prev = temp;
+		}
+	}
+	
+	public void deleteAlternate() {
+		if(this.head == null) return;
+		Node remaining = head;
+		while(remaining != null && remaining.next != null) {
+			remaining.next = remaining.next.next;
+			remaining = remaining.next;
+		}
+	}
+	
+	public void splitAlternate() {
+		if(this.head == null) return;
+		Node remaining = head;
+		Node temp, prev = null;
+		this.tail = null;
+		while(remaining != null && remaining.next != null) {
+			temp = remaining.next;
+			remaining.next = remaining.next.next;
+			remaining = remaining.next;
+			if(this.tail == null) {
+				this.tail = temp;
+			} else {
+				prev.next = temp;
+			}
+			prev = temp;
+		}
+	}
+	
+	public void MergeHeadtail() {
+		if(this.head == null) return;
+		Node first = this.head, second = this.tail, prev= null;
+		
+		while(first != null && second != null) {
+			if(Integer.parseInt(first.data.toString()) > Integer.parseInt(second.data.toString())) {
+				if(prev!=null){
+					prev.next = second;
+					prev = prev.next;
+				} else {
+					prev = second;
+					this.head = second;
+				}
+				second = second.next;
+			
+			} else {
+				
+				if(prev != null){
+					prev.next = first;
+					prev = prev.next;
+				} else {
+					prev = first;
+					this.head = first;
+				}
+				first = first.next;
+			}
+			
+		}
+		if(first != null) prev.next = first;
+		if(second != null)prev.next = second;
 	}
 
 }

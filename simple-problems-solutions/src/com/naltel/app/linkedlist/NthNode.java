@@ -7,11 +7,11 @@ public class NthNode {
 	
 	public static void main(String args[]) {
 		
-		int[] array = new int[]{1,1,1,2,3,3,4,5,5};
+		int[] array = new int[]{1,2,3,4,5,6};
 		
 		MyLinkedList ll = new MyLinkedList();
 		for(int i = 0; i <array.length; i++) {
-			ll.insert(new Node(array[i]));
+			ll.insertAtEnd(new Node(array[i]));
 		}
 		//ll.insert(new Node(1));
 		//ll.insert(new Node(2));
@@ -63,11 +63,24 @@ public class NthNode {
 		//ll.removeDuplicates();
 		//System.out.println(ll.toString());
 		
-		System.out.println(ll.toString());
-		ll.removeDuplicatesUnsorted();
-		System.out.println(ll.toString());
+		//System.out.println(ll.toString());
+		//ll.removeDuplicatesUnsorted();
+		//System.out.println(ll.toString());
 		
+		//System.out.println(ll.toString());
+		//ll.reverseTwoConsecutive();
+		//System.out.println(ll.toString());
 		
+		//System.out.println(ll.toString());
+		//ll.deleteAlternate();
+		//System.out.println(ll.toString());
+		
+		System.out.println(ll.toString());
+		ll.splitAlternate();
+		System.out.println(ll.toString());
+		System.out.println(ll.toTailString());
+		ll.MergeHeadtail();
+		System.out.println(ll.toString());
 	}
 	
 	public static Node nthNode(Node thead, int k) {
