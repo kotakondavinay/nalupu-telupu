@@ -1,4 +1,5 @@
-import java.util.*;
+package com.naltel.app.misc;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
