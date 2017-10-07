@@ -2,8 +2,8 @@
 #include<stdlib.h>
 int main()
 {
-    int *z,i,n,j,w1=0,t,x1=0,y1=0,a1=0,b1=0;
-    char w[500000],x[500000],y[500000],a[500000],b[500000];
+    int *z,i,n,j,w1=0,t,x1=0,y1=0,a1=0,b1=0,maxCount=50000;
+    char w[maxCount],x[maxCount],y[maxCount],a[maxCount],b[maxCount];
     printf("enter n value\n");
     scanf("%d",&n);
     z=(int *)malloc(n*sizeof(int));
@@ -23,20 +23,20 @@ int main()
             	    z[i]=(i+1)*t+z[i];
             	    t=z[i]%10;
             	}
-            if(w1<500000){w[w1++]=z[n-1]%10+48;}
-	    else if(x1<500000){x[x1++]=z[n-1]%10+48;}
-	    else if(y1<500000){y[y1++]=z[n-1]%10+48;}
-	    else if(a1<500000){a[a1++]=z[n-1]%10+48;}
-	    else if(b1<500000){b[b1++]=z[n-1]%10+48;}
+            if(w1<maxCount){w[w1++]=z[n-1]%10+48;}
+	    else if(x1<maxCount){x[x1++]=z[n-1]%10+48;}
+	    else if(y1<maxCount){y[y1++]=z[n-1]%10+48;}
+	    else if(a1<maxCount){a[a1++]=z[n-1]%10+48;}
+	    else if(b1<maxCount){b[b1++]=z[n-1]%10+48;}
             for(i=j;i<n;i++)
                 z[i]=z[i]/10;
         }
     }
     printf("\n\nfactorial(%d) is:\n\n",n);
-    if(a1>=500000)for(i=b1-1;i>=0;i--)printf("%c",b[i]);
-    if(y1>=500000)for(i=a1-1;i>=0;i--)printf("%c",a[i]);
-    if(x1>=500000)for(i=y1-1;i>=0;i--)printf("%c",y[i]);
-    if(w1>=500000)for(i=x1-1;i>=0;i--)printf("%c",x[i]);
+    if(a1>=maxCount)for(i=b1-1;i>=0;i--)printf("%c",b[i]);
+    if(y1>=maxCount)for(i=a1-1;i>=0;i--)printf("%c",a[i]);
+    if(x1>=maxCount)for(i=y1-1;i>=0;i--)printf("%c",y[i]);
+    if(w1>=maxCount)for(i=x1-1;i>=0;i--)printf("%c",x[i]);
     for(i=w1-1;i>=0;i--)
         printf("%c",w[i]);
     printf("\n");}
