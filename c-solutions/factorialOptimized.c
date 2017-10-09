@@ -26,15 +26,15 @@ int main()
 			{
 				z[i]=(i+1)*t+z[i];
 				t=z[i]%10;
+				z[i]=z[i]/10;
 			}
 			if(currentPointer == -1 || outputModuloCounter == maxOutCounter) {
 				outputModuloCounter = 0;
 				currentPointer += 1;
 				output[currentPointer] = (char *)malloc(maxOutCounter*sizeof(char));
 			}
-			output[currentPointer][outputModuloCounter++]=z[n-1]%10+48;	
-			for(i=j;i<n;i++)
-				z[i]=z[i]/10;
+			output[currentPointer][outputModuloCounter++]=t%10+48;
+			z[j]=z[j]/10;
 		}
 	}
     printf("\n\nfactorial of (%d) is:\n\n",n);
