@@ -35,7 +35,7 @@ int main()
 		currentPointer += 1;
 		output[currentPointer] = (char *)malloc(maxOutCounter*sizeof(char));
 	    }
-	    output[currentPointer][outputModuloCounter++]=t%10+48;
+	    output[currentPointer][outputModuloCounter++]=t+48;
 	    z[j]=z[j]/10;
 	}
     }
@@ -43,11 +43,11 @@ int main()
     j = currentPointer;
     k = outputModuloCounter;
     while(j >= 0) {
-	for(i = k;i >= 0;i--) {
-	    printf("%c",output[j][i]);
-	}
-	k = maxOutCounter;
-	j--;
+	    for(i = k;i >= 0;i--) {
+	        printf("%c",output[j][i]);
+	    }
+	    k = maxOutCounter;
+	    j--;
     }
     printf("\n");
     printf("no of digits are %d \n", (currentPointer * maxOutCounter) + outputModuloCounter);  
