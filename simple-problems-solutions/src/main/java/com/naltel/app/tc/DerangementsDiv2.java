@@ -22,7 +22,7 @@ public class DerangementsDiv2 {
             if(i%2 == 0)
                 ans = (ans + ((coefficient * fact[m+n-i])%mod))%mod;
             else
-                ans = (ans + ((-coefficient * fact[m+n-i])%mod))%mod;
+                ans = (ans - (coefficient * fact[m+n-i])%mod + mod)%mod;
         }
         return (int)ans;
     }
