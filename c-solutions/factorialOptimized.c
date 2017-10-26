@@ -43,7 +43,7 @@ int main()
     j = currentPointer;
     k = outputModuloCounter;
     while(j >= 0) {
-	    for(i = k;i >= 0;i--) {
+	    for(i = k-1;i >= 0;i--) {
 	        printf("%c",output[j][i]);
 	    }
 	    k = maxOutCounter;
