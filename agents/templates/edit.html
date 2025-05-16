@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Entry - My Personal Diary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2d3436;
+            --secondary-color: #636e72;
+            --accent-color: #0984e3;
+            --background-color: #f5f6fa;
+            --card-background: #ffffff;
+            --success-color: #00b894;
+            --error-color: #d63031;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--primary-color);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .edit-form {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .save-btn {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .save-btn:hover {
+            background-color: #0873c4;
+        }
+
+        .cancel-btn {
+            background-color: #e0e0e0;
+            color: var(--primary-color);
+        }
+
+        .cancel-btn:hover {
+            background-color: #d0d0d0;
+        }
+
+        .flash-messages {
+            margin-bottom: 2rem;
+        }
+
+        .flash {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .flash.success {
+            background-color: #d4f8e8;
+            color: var(--success-color);
+        }
+
+        .flash.error {
+            background-color: #ffe3e3;
+            color: var(--error-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Edit Entry</h1>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="edit-form">
+            <form action="{{ url_for('edit_entry', id=entry[0]) }}" method="POST">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" value="{{ entry[1] }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="entry_date">Date</label>
+                    <input type="date" id="entry_date" name="entry_date" value="{{ entry[4] }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="content">Content</label>
+                    <textarea id="content" name="content" required>{{ entry[2] }}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="mood">How are you feeling?</label>
+                    <select id="mood" name="mood">
+                        <option value="">Select a mood...</option>
+                        <option value="Happy" {% if entry[3] == 'Happy' %}selected{% endif %}>Happy</option>
+                        <option value="Reflective" {% if entry[3] == 'Reflective' %}selected{% endif %}>Reflective</option>
+                        <option value="Creative" {% if entry[3] == 'Creative' %}selected{% endif %}>Creative</option>
+                        <option value="Thoughtful" {% if entry[3] == 'Thoughtful' %}selected{% endif %}>Thoughtful</option>
+                        <option value="Inspired" {% if entry[3] == 'Inspired' %}selected{% endif %}>Inspired</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="save-btn">Save Changes</button>
+                    <a href="{{ url_for('index') }}" class="cancel-btn" style="text-decoration: none; text-align: center;">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html> 
