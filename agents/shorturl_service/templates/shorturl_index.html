@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Short URL Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2em; }
+        .container { max-width: 400px; margin: auto; }
+        input[type=url], button { width: 100%; padding: 0.5em; margin: 0.5em 0; }
+        .result { margin-top: 1em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Short URL Generator</h2>
+        <form method="post">
+            <input type="url" name="long_url" placeholder="Enter your long URL" required>
+            <button type="submit">Shorten</button>
+        </form>
+        {% if short_url %}
+        <div class="result">
+            <strong>Short URL:</strong> <a href="{{ short_url }}">{{ short_url }}</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html> 
