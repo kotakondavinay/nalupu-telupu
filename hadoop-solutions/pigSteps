@@ -1,9 +1,0 @@
-1) Grep example
-   lines = LOAD '/home/vinaykk/workh/input/sample.txt';
-   dump lines;
-   hadoopLines = FILTER lines BY $0 MATCHES '.*hadoop';
-   STORE hadoopLines INTO '/home/vinaykk/workh/output/cleanedLines';
-   
-   
-   
-   ./pig -x local -P  /home/vinaykk/workh/input/pig/user.properties  /home/vinaykk/workh/input/pig/sed.pig

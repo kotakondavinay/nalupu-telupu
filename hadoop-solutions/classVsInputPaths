@@ -1,9 +1,0 @@
-1) PhoneRetrievalJob         /home/vinaykk/workh/input/users  /home/vinaykk/workh/input/userPhone /home/vinaykk/workh/input/lookup.txt
-2) WordPairCountJob			/home/vinaykk/workh/input/wordpair.txt /home/vinaykk/workh/input/wordpairCount
-3) WordCountPerFileJob		/home/vinaykk/workh/input/seqFile  /home/vinaykk/workh/input/perFileCount
-4) URICountJob			/home/vinaykk/workh/input/keyValueInput.log /home/vinaykk/workh/output/uricount
-
-
-Run  run before WordCountPerFileJob
-5) SequenceFileGenerator  /home/vinaykk/workh/input/smallFiles /home/vinaykk/workh/input/seqFile
-6) NLineJob      /home/vinaykk/workh/input/users
