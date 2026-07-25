@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indic Language Processor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 40px;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            font-weight: 400;
+        }
+
+        .text-input {
+            width: 100%;
+            min-height: 150px;
+            padding: 20px;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .language-info {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .language-tag {
+            background: #f8f9fa;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #666;
+            border: 1px solid #e9ecef;
+        }
+
+        .language-tag.supported {
+            background: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .process-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 20px;
+        }
+
+        .process-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .process-btn:active {
+            transform: translateY(0);
+        }
+
+        .process-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .result-section {
+            margin-top: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .result-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            font-weight: 400;
+        }
+
+        .result-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .language-detection {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196f3;
+        }
+
+        .statistics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .insights {
+            margin-top: 20px;
+        }
+
+        .insights h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .insights ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .insights li {
+            background: white;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #dc3545;
+            margin: 20px 0;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .sample-texts {
+            margin-top: 20px;
+        }
+
+        .sample-texts h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .sample-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .sample-btn {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .sample-btn:hover {
+            background: #e9ecef;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .statistics {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌏 Indic Language Processor</h1>
+            <p>Process and analyze text in Telugu, Kannada, and Sanskrit</p>
+        </div>
+
+        <div class="main-content">
+            <div class="input-section">
+                <h2>Enter Your Text</h2>
+                <textarea 
+                    id="textInput" 
+                    class="text-input" 
+                    placeholder="Type or paste your text here in Telugu (తెలుగు), Kannada (ಕನ್ನಡ), or Sanskrit (संस्कृतम्)..."
+                ></textarea>
+                
+                <div class="language-info">
+                    <div class="language-tag supported">Supported: Telugu</div>
+                    <div class="language-tag supported">Supported: Kannada</div>
+                    <div class="language-tag supported">Supported: Sanskrit</div>
+                </div>
+
+                <div class="sample-texts">
+                    <h3>Try Sample Texts:</h3>
+                    <div class="sample-buttons">
+                        <button class="sample-btn" onclick="loadSampleText('telugu')">Telugu Sample</button>
+                        <button class="sample-btn" onclick="loadSampleText('kannada')">Kannada Sample</button>
+                        <button class="sample-btn" onclick="loadSampleText('sanskrit')">Sanskrit Sample</button>
+                    </div>
+                </div>
+
+                <button id="processBtn" class="process-btn" onclick="processText()">
+                    Process Text
+                </button>
+            </div>
+
+            <div id="resultSection" class="result-section" style="display: none;">
+                <h2>Analysis Results</h2>
+                <div id="resultContent" class="result-content">
+                    <!-- Results will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sampleTexts = {
+            telugu: "తెలుగు భాష ప్రపంచంలో అత్యంత ప్రాచీన భాషలలో ఒకటి. ఇది ద్రావిడ భాషా కుటుంబానికి చెందినది. తెలుగు భాషలో అనేక సాహిత్య రచనలు ఉన్నాయి.",
+            kannada: "ಕನ್ನಡ ಭಾಷೆ ಭಾರತದ ಕರ್ನಾಟಕ ರಾಜ್ಯದ ಅಧಿಕೃತ ಭಾಷೆ. ಇದು ದ್ರಾವಿಡ ಭಾಷಾ ಕುಟುಂಬಕ್ಕೆ ಸೇರಿದೆ. ಕನ್ನಡದಲ್ಲಿ ಅನೇಕ ಸಾಹಿತ್ಯ ಕೃತಿಗಳು ರಚನೆಯಾಗಿವೆ.",
+            sanskrit: "संस्कृतं भारतस्य प्राचीनतमा भाषा। एषा भाषा विश्वस्य सर्वेषां भाषाणां जननी इति मन्यते। संस्कृते अनेकानि महाकाव्यानि रचितानि सन्ति।"
+        };
+
+        function loadSampleText(language) {
+            document.getElementById('textInput').value = sampleTexts[language];
+        }
+
+        function showLoading() {
+            const resultSection = document.getElementById('resultSection');
+            const resultContent = document.getElementById('resultContent');
+            const processBtn = document.getElementById('processBtn');
+            
+            resultSection.style.display = 'block';
+            resultContent.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Processing your text...</p>
+                </div>
+            `;
+            processBtn.disabled = true;
+            processBtn.textContent = 'Processing...';
+        }
+
+        function hideLoading() {
+            const processBtn = document.getElementById('processBtn');
+            processBtn.disabled = false;
+            processBtn.textContent = 'Process Text';
+        }
+
+        function displayResults(data) {
+            const resultContent = document.getElementById('resultContent');
+            
+            if (data.error) {
+                resultContent.innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> ${data.error}
+                    </div>
+                `;
+                return;
+            }
+
+            const { language_info, statistics, insights, original_text } = data;
+            
+            let languageClass = language_info.is_indic ? 'supported' : '';
+            let languageDisplay = language_info.is_indic ? 
+                `${language_info.name_in_script} (${language_info.detected})` : 
+                'Unknown/Non-Indic';
+
+            resultContent.innerHTML = `
+                <div class="language-detection">
+                    <h3>Language Detection</h3>
+                    <p><strong>Detected Language:</strong> <span class="language-tag ${languageClass}">${languageDisplay}</span></p>
+                </div>
+
+                <div class="statistics">
+                    <div class="stat-item">
+                        <div class="stat-number">${statistics.word_count}</div>
+                        <div class="stat-label">Words</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${statistics.char_count}</div>
+                        <div class="stat-label">Characters</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${statistics.char_count_no_spaces}</div>
+                        <div class="stat-label">Characters (no spaces)</div>
+                    </div>
+                </div>
+
+                <div class="insights">
+                    <h3>Analysis Insights</h3>
+                    <ul>
+                        ${insights.map(insight => `<li>${insight}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                    <h3>Processed Text</h3>
+                    <p style="margin-top: 10px; font-size: 16px; line-height: 1.6;">${original_text}</p>
+                </div>
+            `;
+        }
+
+        async function processText() {
+            const text = document.getElementById('textInput').value.trim();
+            
+            if (!text) {
+                alert('Please enter some text to process');
+                return;
+            }
+
+            showLoading();
+
+            try {
+                const formData = new FormData();
+                formData.append('text', text);
+
+                const response = await fetch('/process', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                displayResults(data);
+            } catch (error) {
+                displayResults({ error: 'Failed to process text. Please try again.' });
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Auto-detect language as user types
+        document.getElementById('textInput').addEventListener('input', function() {
+            const text = this.value.trim();
+            if (text.length > 10) {
+                // Auto-detect language for longer text
+                detectLanguage(text);
+            }
+        });
+
+        async function detectLanguage(text) {
+            try {
+                const response = await fetch('/api/detect-language', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text: text })
+                });
+
+                const data = await response.json();
+                if (data.detected_language && data.detected_language !== 'unknown') {
+                    // Could add visual feedback here
+                    console.log('Detected language:', data.language_name);
+                }
+            } catch (error) {
+                console.log('Language detection failed:', error);
+            }
+        }
+    </script>
+</body>
+</html>
